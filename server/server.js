@@ -29,6 +29,18 @@ const job = {
     type: String,
   },
   origin: {
+    isPickup: {
+      type: String,
+
+    },
+    isReceiving: {
+      type: String,
+
+    },
+    isDropOff: {
+      type: String,
+
+    },
     isPacking: {
       type: String,
 
@@ -40,9 +52,10 @@ const job = {
     isWhiteGlove: {
       type: String,
     },
-
+    isCustomerPickUp: {
+      type: String,
+    },
   },
-
   payee: {
     type: String,
     default: 'customer_id'
@@ -67,20 +80,19 @@ const job = {
     receiveBy: {
       type: Date,
     }
-
   },
-  adderesses: {
+  addresses: {
     originAdress: {
       city: String,
       street: String,
       houseNumber: String,
     },
-    originAdress: {
+    shippingAdress: {
       city: String,
       street: String,
       houseNumber: String,
     },
-    originAdress: {
+    deliveryAdress: {
       city: String,
       street: String,
       houseNumber: String,

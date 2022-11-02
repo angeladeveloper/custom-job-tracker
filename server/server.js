@@ -39,15 +39,16 @@ const job = {
     },
     isDropOff: {
       type: String,
+    }
+  },
 
-    },
-    isPacking: {
-      type: String,
-
-    },
+  isPacking: {
+    type: String,
+  },
+  shipping:{
     isShipping: {
       type: String,
-
+      default: addresses.shippingAddress
     },
     isWhiteGlove: {
       type: String,
@@ -55,15 +56,37 @@ const job = {
     isCustomerPickUp: {
       type: String,
     },
+    trackingNumber:{
+      type: String
+    },
+    referenceNumber:{
+      type: String
+    },
+    bolNumber:{
+      type: String
+    },
+    podNumber:{
+      type: String
+    }
   },
-  payee: {
-    type: String,
-    default: 'customer_id'
+  item:{
+    itemName:{
+      type: String
+    },
+    itemQty:{
+      type: Number
+    }
   },
-  hasPaid: {
-    type: String,
-    default: "Needs-invoiced",
-    enum: ["Not Paid", "Paid", "Past-Due", "Partial", "Care-needed", "Needs-invoiced"]
+  payment:{
+    payee: {
+      type: String,
+      default: 'customer_id'
+    },
+    hasPaid: {
+      type: String,
+      default: "Needs-invoiced",
+      enum: ["Not Paid", "Paid", "Past-Due", "Partial", "Care-needed", "Needs-invoiced"]
+    },
   },
   status: {
     type: String,
@@ -77,25 +100,34 @@ const job = {
     completeBy: {
       type: Date,
     },
+    customerReceiveBy: {
+      type: Date,
+    },
+    packBy: {
+      type: Date,
+    },
     receiveBy: {
+      type: Date,
+    },
+    shipBy: {
       type: Date,
     }
   },
   addresses: {
-    originAdress: {
+    originAddress: {
       city: String,
-      street: String,
-      houseNumber: String,
+      streetAddress: String,
+      zipCode: String,
     },
-    shippingAdress: {
+    shippingAddress: {
       city: String,
-      street: String,
-      houseNumber: String,
+      streetAddress: String,
+      zipCode: String,
     },
-    deliveryAdress: {
+    deliveryAddress: {
       city: String,
-      street: String,
-      houseNumber: String,
+      streetAddress: String,
+      zipCode: String,
     },
   },
   notes: {
@@ -120,4 +152,84 @@ const customer = {
     unique: true,
     match: [/.+@.+\..+/, 'Must match an email address!'],
   },
+  phone: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/
+    , 'Must be valid phone number'],
+  },
+  primaryAddress: {
+    type: String,
+  },
+  secondaryAddress: {
+    type: String,
+  },
+  previousCust:{
+    type: Boolean
+  },
+  jobIds:{
+    type: Array
+  }
 }
+
+
+{
+  "origin": {
+      "isPickup":true ,
+      "isReceiving": true,
+      "isDropOff":true
+    },
+    "isPacking": true,
+    "shipping":{
+      "isShipping": true,
+      "isWhiteGlove": true,
+      "isCustomerPickUp": false,
+      "trackingNumber":"jfj344ji5j941noe",
+      "referenceNumber":"4934fgfg",
+      "bolNumber":"4823849-44",
+      "podNumber" :"563jk"
+    },
+    "item":{
+      "itemName":"Painting",
+      "itemQty":3
+    },
+    "payment":{
+      "payee": "0001",
+      "hasPaid": "Needs-invoiced"
+    },
+    "status":"Active",
+    "timeFrames": {
+      "created_at": "08-21-2022",
+      "completeBy": "08-30-2022",
+      "customerReceiveBy":"08-30-2022",
+      "packBy": "08-25-2022",
+      "receiveBy":"08-21-2022",
+      "shipBy": "08-29-2022"
+    },
+    "addresses": {
+      "originAddress": {
+        "city": "Auburn",
+        "streetAddress": "123 Main St",
+        "zipCode": "98002"
+      },
+      "shippingAddress": {
+        "city": "Kent",
+        "streetAddress": "344 String Ave",
+        "zipCode": "98032"
+      },
+      "deliveryAddress": {
+        "city": "Kent",
+        "streetAddress": "4 Hydrope Hill",
+        "zipCode": "98032"
+      },
+    "notes": {
+      "estimateNotes": "This is an easy job",
+      "onsiteNotes": "Customwe has 3 cats",
+      "shippingNotes": ""
+   }
+  
+    "_id": {
+      "$oid": "63085b800af6d37ef44c74e4"
+    }
+  }
